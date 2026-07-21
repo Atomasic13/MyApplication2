@@ -231,6 +231,16 @@ nav{border-bottom:1px solid var(--hairline)}
 .cta p{font-size:.95rem;color:var(--muted);margin-bottom:34px}
 .cta-actions{display:flex;justify-content:center;align-items:center;gap:26px;flex-wrap:wrap}
 
+/* ── Theme toggle ──────────────────────────── */
+.theme-toggle{
+  cursor:pointer;background:none;border:1px solid var(--hairline);
+  width:34px;height:34px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:.9rem;line-height:1;
+  transition:border-color .2s,color .2s;flex-shrink:0;
+}
+.theme-toggle:hover{border-color:var(--muted);color:var(--ink)}
+
 /* ── Footer ────────────────────────────────── */
 footer{border-top:1px solid var(--hairline);padding:26px 0}
 .foot-inner{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -261,6 +271,15 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   .cap-list li{flex-direction:column;gap:4px}
 }
 </style>
+<script>
+/* Apply saved theme before first paint to avoid a flash */
+(function () {
+  var saved = localStorage.getItem('deca-theme');
+  if (saved === 'light' || saved === 'dark') {
+    document.documentElement.dataset.theme = saved;
+  }
+})();
+</script>
 </head>
 <body>
 
@@ -272,7 +291,10 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
       <li><a href="#capabilities">Capabilities</a></li>
       <li><a href="#pricing">Pricing</a></li>
     </ul>
-    <a href="#start" class="textlink">Request access →</a>
+    <div style="display:flex;align-items:center;gap:18px">
+      <a href="#start" class="textlink">Request access →</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Switch between light and dark theme" title="Toggle theme">◐</button>
+    </div>
   </div>
 </nav>
 
@@ -527,6 +549,16 @@ async function runBrief(b) {
     await sleep(1200);
   }
 })();
+
+/* ── Theme toggle ───────────────────────────── */
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const root = document.documentElement;
+  const current = root.dataset.theme ||
+    (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const next = current === 'dark' ? 'light' : 'dark';
+  root.dataset.theme = next;
+  localStorage.setItem('deca-theme', next);
+});
 
 /* ── Scroll reveals ─────────────────────────── */
 const obs = new IntersectionObserver(entries => {
