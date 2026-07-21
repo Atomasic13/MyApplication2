@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DECA — Brief In. Everything Out.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* ── Tokens ────────────────────────────────── */
+:root {
+  --bg:          #F8F8F6;
+  --surface:     #FFFFFF;
+  --surface-2:   #F1F1EF;
+  --text-1:      #111110;
+  --text-2:      #68686A;
+  --text-3:      #AEAEAA;
+  --accent:      #1740E8;
+  --accent-soft: #EBF0FF;
+  --green:       #1DBF73;
+  --border:      #E0E0DC;
+  --border-2:    #C8C8C4;
+  --shadow:      0 1px 3px rgba(0,0,0,.04), 0 6px 24px rgba(0,0,0,.06);
+  --r-s: 6px; --r-m: 10px; --r-l: 16px;
+  --max: 1100px;
+  --px: clamp(18px, 5vw, 48px);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:          #0B0B0A;
+    --surface:     #131312;
+    --surface-2:   #1A1A19;
+    --text-1:      #F0F0EE;
+    --text-2:      #898986;
+    --text-3:      #505050;
+    --accent:      #5068F0;
+    --accent-soft: #101C48;
+    --green:       #1DBF73;
+    --border:      #222220;
+    --border-2:    #333330;
+    --shadow:      0 1px 3px rgba(0,0,0,.3), 0 6px 24px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#0B0B0A; --surface:#131312; --surface-2:#1A1A19;
+  --text-1:#F0F0EE; --text-2:#898986; --text-3:#505050;
+  --accent:#5068F0; --accent-soft:#101C48; --green:#1DBF73;
+  --border:#222220; --border-2:#333330;
+  --shadow:0 1px 3px rgba(0,0,0,.3),0 6px 24px rgba(0,0,0,.4);
+}
+:root[data-theme="light"] {
+  --bg:#F8F8F6; --surface:#FFFFFF; --surface-2:#F1F1EF;
+  --text-1:#111110; --text-2:#68686A; --text-3:#AEAEAA;
+  --accent:#1740E8; --accent-soft:#EBF0FF; --green:#1DBF73;
+  --border:#E0E0DC; --border-2:#C8C8C4;
+  --shadow:0 1px 3px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.06);
+}
+
+/* ── Reset ─────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text-1);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.6;
+}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font:inherit;border:none;background:none}
+img,svg{display:block;max-width:100%}
+
+/* ── Layout ────────────────────────────────── */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px)}
+
+/* ── Buttons ───────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.875rem;font-weight:500;padding:9px 18px;
+  border-radius:var(--r-s);transition:opacity .15s,border-color .15s,color .15s;
+  white-space:nowrap;
+}
+.btn-dark{background:var(--text-1);color:var(--bg)}
+.btn-dark:hover{opacity:.8}
+.btn-ghost{border:1px solid var(--border-2);color:var(--text-2)}
+.btn-ghost:hover{border-color:var(--text-2);color:var(--text-1)}
+
+/* ── Nav ───────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:color-mix(in srgb,var(--bg) 80%,transparent);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:58px;gap:20px;
+}
+.logo{
+  display:flex;align-items:baseline;gap:9px;
+  font-weight:800;font-size:1.125rem;letter-spacing:-.04em;
+}
+.logo-by{font-size:.7rem;font-weight:400;color:var(--text-3);letter-spacing:0}
+.nav-links{display:flex;align-items:center;gap:26px;list-style:none}
+.nav-links a{font-size:.875rem;color:var(--text-2);transition:color .15s}
+.nav-links a:hover{color:var(--text-1)}
+
+/* ── Hero ──────────────────────────────────── */
+.hero{padding:clamp(56px,9vw,112px) 0 clamp(32px,5vw,64px)}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(32px,5vw,64px);align-items:start;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:.72rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-soft);
+  padding:4px 10px;border-radius:100px;margin-bottom:18px;
+}
+.eyebrow::before{
+  content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);
+}
+h1{
+  font-size:clamp(2.75rem,5.5vw,4.5rem);font-weight:800;
+  letter-spacing:-.055em;line-height:1.0;text-wrap:balance;
+  margin-bottom:18px;
+}
+.hero-sub{
+  font-size:1.0625rem;color:var(--text-2);line-height:1.7;
+  max-width:42ch;margin-bottom:30px;
+}
+.hero-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+/* ── Widget ────────────────────────────────── */
+.widget{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-l);overflow:hidden;box-shadow:var(--shadow);
+}
+.widget-bar{
+  display:flex;align-items:center;gap:6px;
+  padding:11px 14px;border-bottom:1px solid var(--border);
+  background:var(--surface-2);
+}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot-r{background:#FF5F57}.dot-y{background:#FEBC2E}.dot-g{background:#28C840}
+.widget-bar-title{
+  font-size:.72rem;letter-spacing:.02em;color:var(--text-3);margin-left:4px;
+  font-family:'SF Mono','Fira Code','Cascadia Code',Consolas,monospace;
+}
+.widget-body{padding:18px 18px 22px}
+.wlabel{
+  font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-3);margin-bottom:8px;
+}
+#brief-text{
+  font-family:'SF Mono','Fira Code','Cascadia Code',Consolas,monospace;
+  font-size:.75rem;line-height:1.65;color:var(--text-2);
+  border-left:2px solid var(--border);padding-left:11px;
+  margin-bottom:16px;min-height:50px;word-break:break-word;
+}
+.cursor{
+  display:inline-block;width:2px;height:.9em;
+  background:var(--accent);margin-left:1px;vertical-align:text-bottom;
+  animation:blink 1s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.pbar{height:2px;background:var(--border);border-radius:2px;margin-bottom:16px;overflow:hidden}
+.pbar-fill{height:100%;background:var(--accent);width:0%;border-radius:2px;transition:width .08s linear}
+#out-list{display:flex;flex-direction:column;gap:7px}
+.out-item{
+  display:flex;align-items:center;gap:9px;
+  font-family:'SF Mono','Fira Code',Consolas,monospace;
+  font-size:.73rem;color:var(--text-2);
+  opacity:0;transform:translateY(5px);
+  transition:opacity .22s,transform .22s;
+}
+.out-item.show{opacity:1;transform:none}
+.out-check{
+  width:15px;height:15px;border-radius:50%;flex-shrink:0;
+  background:color-mix(in srgb,var(--green) 15%,transparent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.6rem;color:var(--green);font-style:normal;
+}
+.out-name{flex:1}
+.out-tag{
+  font-size:.62rem;color:var(--text-3);
+  background:var(--surface-2);border:1px solid var(--border);
+  padding:1px 6px;border-radius:4px;
+}
+.delivery{
+  margin-top:14px;padding-top:13px;border-top:1px solid var(--border);
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  font-size:.72rem;color:var(--text-3);
+  opacity:0;transition:opacity .4s;
+}
+.delivery.show{opacity:1}
+.dpill{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--accent-soft);color:var(--accent);
+  padding:2px 8px;border-radius:100px;font-size:.68rem;font-weight:500;
+}
+
+/* ── Stats ─────────────────────────────────── */
+.stats{padding:0 0 clamp(40px,6vw,80px)}
+.stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--border);border-radius:var(--r-l);
+  background:var(--surface);overflow:hidden;
+}
+.stat{padding:28px 32px;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-n{
+  font-size:clamp(2rem,4vw,2.875rem);font-weight:800;
+  letter-spacing:-.04em;line-height:1;margin-bottom:3px;
+  font-variant-numeric:tabular-nums;
+}
+.stat-l{font-size:.875rem;color:var(--text-2)}
+
+/* ── Section base ──────────────────────────── */
+.sec{padding:clamp(48px,8vw,92px) 0}
+.sec+.sec{border-top:1px solid var(--border)}
+.sec-eye{
+  font-size:.72rem;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--text-3);margin-bottom:10px;
+}
+.sec-h{
+  font-size:clamp(1.75rem,3vw,2.625rem);font-weight:800;
+  letter-spacing:-.04em;line-height:1.1;text-wrap:balance;margin-bottom:14px;
+}
+.sec-sub{
+  font-size:1rem;color:var(--text-2);max-width:50ch;
+  line-height:1.7;margin-bottom:36px;
+}
+
+/* ── Skills grid ───────────────────────────── */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  gap:10px;
+}
+.skill{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-m);padding:20px 22px;
+  transition:border-color .15s;
+}
+.skill:hover{border-color:var(--border-2)}
+.skill-n{font-size:.9rem;font-weight:650;margin-bottom:5px}
+.skill-d{font-size:.8rem;color:var(--text-2);line-height:1.5}
+
+/* ── Steps ─────────────────────────────────── */
+.steps{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:var(--border);
+  border-radius:var(--r-l);overflow:hidden;margin-top:36px;
+}
+.step{
+  background:var(--surface);padding:28px 28px 32px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.step-n{
+  font-size:.7rem;font-weight:700;letter-spacing:.05em;
+  color:var(--accent);font-family:'SF Mono',Consolas,monospace;
+}
+.step-t{font-size:1rem;font-weight:700;letter-spacing:-.02em}
+.step-d{font-size:.875rem;color:var(--text-2);line-height:1.6}
+.step-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.stag{
+  font-size:.68rem;color:var(--text-3);
+  background:var(--surface-2);border:1px solid var(--border);
+  padding:2px 8px;border-radius:100px;
+  font-family:'SF Mono',Consolas,monospace;
+}
+
+/* ── Pricing ───────────────────────────────── */
+.plans{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:14px;margin-top:36px;
+}
+.plan{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-l);padding:26px;
+  display:flex;flex-direction:column;gap:18px;position:relative;
+}
+.plan.hot{border-color:var(--accent);background:var(--accent-soft)}
+.plan-badge{
+  position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+  background:var(--accent);color:#fff;
+  font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 10px;border-radius:100px;white-space:nowrap;
+}
+.plan-name{font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-3)}
+.plan-price{
+  font-size:2.375rem;font-weight:800;letter-spacing:-.04em;
+  line-height:1;font-variant-numeric:tabular-nums;
+}
+.plan-price em{font-size:.9rem;font-weight:400;color:var(--text-3);font-style:normal}
+.plan-desc{font-size:.875rem;color:var(--text-2);line-height:1.55}
+.plan-feats{list-style:none;display:flex;flex-direction:column;gap:9px}
+.plan-feats li{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:.875rem;color:var(--text-2);
+}
+.plan-feats li::before{
+  content:'✓';color:var(--accent);font-size:.72rem;
+  font-weight:700;margin-top:4px;flex-shrink:0;
+}
+.plan-cta{margin-top:auto}
+.plan-cta .btn{width:100%;justify-content:center}
+
+/* ── Final CTA ─────────────────────────────── */
+.cta-sec{padding:clamp(48px,8vw,96px) 0;text-align:center}
+.cta-sec h2{
+  font-size:clamp(2rem,4vw,3.125rem);font-weight:800;
+  letter-spacing:-.045em;margin-bottom:14px;text-wrap:balance;
+}
+.cta-sec p{font-size:1rem;color:var(--text-2);margin-bottom:28px}
+.cta-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+
+/* ── Footer ────────────────────────────────── */
+footer{border-top:1px solid var(--border);padding:28px 0}
+.foot-inner{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.foot-copy{font-size:.78rem;color:var(--text-3)}
+.foot-links{display:flex;gap:18px;list-style:none}
+.foot-links a{font-size:.78rem;color:var(--text-3);transition:color .15s}
+.foot-links a:hover{color:var(--text-2)}
+
+/* ── Reveals ───────────────────────────────── */
+.rev{opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+.rev.in{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  .rev,.out-item,.delivery,.cursor{animation:none;transition:none;opacity:1;transform:none}
+  .pbar-fill{transition:none}
+}
+
+/* ── Mobile ────────────────────────────────── */
+@media(max-width:760px){
+  .hero-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr}
+  .stat{border-right:none;border-bottom:1px solid var(--border)}
+  .stat:last-child{border-bottom:none}
+  .steps{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .foot-inner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────── -->
+<nav>
+  <div class="wrap nav-inner">
+    <div class="logo">DECA <span class="logo-by">by FORMA Studio</span></div>
+    <ul class="nav-links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <a href="#access" class="btn btn-dark">Request Access →</a>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────── -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+
+      <div>
+        <div class="eyebrow">AI Design Agent</div>
+        <h1>Brief in.<br>Everything out.</h1>
+        <p class="hero-sub">DECA does the work of ten designers — brand identity, UI/UX, campaigns, social, and handoff — delivered to Figma, email, or your phone.</p>
+        <div class="hero-actions">
+          <a href="#access" class="btn btn-dark">Request Early Access →</a>
+          <a href="#how" class="btn btn-ghost">See how it works</a>
+        </div>
+      </div>
+
+      <div class="widget">
+        <div class="widget-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <span class="widget-bar-title">deca — brief-processor</span>
+        </div>
+        <div class="widget-body">
+          <div class="wlabel">Brief received</div>
+          <div id="brief-text">
+            <span class="cursor" id="cur"></span>
+          </div>
+          <div class="wlabel">Processing</div>
+          <div class="pbar"><div class="pbar-fill" id="pbar"></div></div>
+          <div class="wlabel">Output</div>
+          <div id="out-list"></div>
+          <div class="delivery" id="delivery">
+            Delivered to
+            <span class="dpill">Telegram</span>
+            <span class="dpill">Email</span>
+            <span class="dpill">Figma</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ─────────────────────────────────── -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-n">10×</div>
+        <div class="stat-l">designers' output, one agent</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">18</div>
+        <div class="stat-l">deliverable types handled</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">&lt;2h</div>
+        <div class="stat-l">average campaign turnaround</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ────────────────────────────────── -->
+<section class="sec" id="skills">
+  <div class="wrap">
+    <div class="sec-eye rev">Capabilities</div>
+    <h2 class="sec-h rev">Every design role.<br>One agent.</h2>
+    <p class="sec-sub rev">From the first competitor audit to the final Figma export — DECA runs the full design workflow, end to end.</p>
+    <div class="skills-grid rev">
+      <div class="skill"><div class="skill-n">Brand Identity</div><div class="skill-d">Logo, color system, typography, brand guidelines PDF</div></div>
+      <div class="skill"><div class="skill-n">UI / UX Design</div><div class="skill-d">App screens, web pages, component libraries in Figma</div></div>
+      <div class="skill"><div class="skill-n">Social Media Pack</div><div class="skill-d">Feed posts, Stories, Reels covers — all platforms, all sizes</div></div>
+      <div class="skill"><div class="skill-n">Campaign Design</div><div class="skill-d">Full asset sets — one-week sprint or six-month roadmap</div></div>
+      <div class="skill"><div class="skill-n">Design Systems</div><div class="skill-d">Tokens, components, documentation ready for dev handoff</div></div>
+      <div class="skill"><div class="skill-n">Competitive Research</div><div class="skill-d">Competitor teardowns, moodboards, positioning reports</div></div>
+      <div class="skill"><div class="skill-n">Motion Design</div><div class="skill-d">Lottie animations, hover states, UI micro-interactions</div></div>
+      <div class="skill"><div class="skill-n">Design to Code</div><div class="skill-d">Figma → React / HTML / CSS via Locofy or v0</div></div>
+      <div class="skill"><div class="skill-n">Presentation Decks</div><div class="skill-d">Pitch decks, client proposals, case study presentations</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW ───────────────────────────────────── -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="sec-eye rev">How it works</div>
+    <h2 class="sec-h rev">Brief. Design. Deliver.<br>That's the entire loop.</h2>
+    <p class="sec-sub rev">No standups. No status updates. No "I'll have it to you by end of week." DECA runs the loop until the work is done.</p>
+    <div class="steps rev">
+      <div class="step">
+        <div class="step-n">01 — BRIEF</div>
+        <div class="step-t">Send the brief</div>
+        <div class="step-d">Paste a doc, forward a message, share a PDF, or just describe what you need. DECA parses it and builds a structured scope — deliverables, timeline, open questions — automatically.</div>
+        <div class="step-tags">
+          <span class="stag">.pdf</span><span class="stag">.md</span>
+          <span class="stag">.txt</span><span class="stag">voice note</span>
+          <span class="stag">email copy</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">02 — DESIGN</div>
+        <div class="step-t">DECA does the work</div>
+        <div class="step-d">The agent runs the full design workflow — research, direction, production, revision — across every deliverable in the scope. No back-and-forth required unless you want it.</div>
+        <div class="step-tags">
+          <span class="stag">Figma</span><span class="stag">Midjourney</span>
+          <span class="stag">Gemini</span><span class="stag">v0</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">03 — DELIVER</div>
+        <div class="step-t">Files arrive instantly</div>
+        <div class="step-d">All exports packaged, named correctly, and sent to where you work. No portals, no "let me send that over." It arrives when it's done — to your Figma, inbox, or phone.</div>
+        <div class="step-tags">
+          <span class="stag">Telegram</span><span class="stag">WhatsApp</span>
+          <span class="stag">Email</span><span class="stag">Figma</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ───────────────────────────────── -->
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <div class="sec-eye rev">Pricing</div>
+    <h2 class="sec-h rev">Pay for output.<br>Not headcount.</h2>
+    <p class="sec-sub rev">No retainers, no hiring timelines, no "we're at capacity this month." One subscription, full design coverage.</p>
+    <div class="plans rev">
+      <div class="plan">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">$490<em>/mo</em></div>
+        <div class="plan-desc">For founders and solo operators who need consistent design output without a team.</div>
+        <ul class="plan-feats">
+          <li>Up to 8 deliverables / month</li>
+          <li>Brand identity (one brand)</li>
+          <li>Social pack each month</li>
+          <li>Email + Telegram delivery</li>
+          <li>2 revision rounds per project</li>
+        </ul>
+        <div class="plan-cta"><a href="#access" class="btn btn-ghost">Get started →</a></div>
+      </div>
+
+      <div class="plan hot">
+        <div class="plan-badge">Most popular</div>
+        <div class="plan-name">Studio</div>
+        <div class="plan-price">$1,490<em>/mo</em></div>
+        <div class="plan-desc">For growing teams running regular campaigns, product launches, and UI work.</div>
+        <ul class="plan-feats">
+          <li>Unlimited deliverables</li>
+          <li>UI/UX + brand + campaigns</li>
+          <li>Full design system build</li>
+          <li>Figma access included</li>
+          <li>Design-to-code handoff</li>
+          <li>Dedicated Telegram channel</li>
+        </ul>
+        <div class="plan-cta"><a href="#access" class="btn btn-dark">Start Studio →</a></div>
+      </div>
+
+      <div class="plan">
+        <div class="plan-name">Agency</div>
+        <div class="plan-price">Custom</div>
+        <div class="plan-desc">For agencies that need DECA running across multiple clients simultaneously.</div>
+        <ul class="plan-feats">
+          <li>Multi-client management</li>
+          <li>White-label output</li>
+          <li>Priority turnaround</li>
+          <li>Custom skill configuration</li>
+          <li>Direct integration support</li>
+          <li>SLA + dedicated pipeline</li>
+        </ul>
+        <div class="plan-cta"><a href="mailto:hello@formastudio.ai" class="btn btn-ghost">Contact us →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────── -->
+<section class="cta-sec sec" id="access">
+  <div class="wrap rev">
+    <h2>Start with one brief.</h2>
+    <p>No commitment. Send a real project — see what DECA returns.</p>
+    <div class="cta-actions">
+      <a href="mailto:hello@formastudio.ai" class="btn btn-dark">Send us a brief →</a>
+      <a href="#" class="btn btn-ghost">Book a 15-min call</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────── -->
+<footer>
+  <div class="wrap foot-inner">
+    <span class="foot-copy">© 2026 FORMA Studio · DECA is in early access</span>
+    <ul class="foot-links">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="mailto:hello@formastudio.ai">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/* ── Brief widget ───────────────────────────── */
+const BRIEFS = [
+  {
+    text:"We're launching a fintech app next month.\nNeed a brand identity + social media pack.",
+    out:[
+      {n:'Competitive analysis',t:'.md'},
+      {n:'Brand strategy doc',t:'.pdf'},
+      {n:'Logo — 4 variants',t:'.svg'},
+      {n:'Color + typography system',t:'Figma'},
+      {n:'Social pack — 12 posts',t:'.zip'},
+      {n:'Brand guidelines',t:'.pdf'},
+    ]
+  },
+  {
+    text:"6-week campaign for product launch.\nInstagram, LinkedIn, email banners.",
+    out:[
+      {n:'Campaign concept deck',t:'.pdf'},
+      {n:'Instagram feed × 18',t:'.png'},
+      {n:'Instagram Stories × 12',t:'.png'},
+      {n:'LinkedIn banners × 6',t:'.png'},
+      {n:'Email header templates',t:'.html'},
+      {n:'Figma source file',t:'Figma'},
+    ]
+  },
+  {
+    text:"New SaaS product — need landing page designs\nand a component library for the dev team.",
+    out:[
+      {n:'UX research summary',t:'.md'},
+      {n:'Wireframes — 3 variants',t:'Figma'},
+      {n:'High-fidelity screens',t:'Figma'},
+      {n:'Component library',t:'Figma'},
+      {n:'Design tokens',t:'.json'},
+      {n:'React components',t:'.tsx'},
+    ]
+  }
+];
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+let idx = 0, running = false;
+
+async function runBrief(b) {
+  const tEl  = document.getElementById('brief-text');
+  const pEl  = document.getElementById('pbar');
+  const lEl  = document.getElementById('out-list');
+  const dEl  = document.getElementById('delivery');
+  const cEl  = document.getElementById('cur');
+
+  tEl.textContent = '';
+  tEl.appendChild(cEl);
+  pEl.style.width = '0%';
+  lEl.innerHTML = '';
+  dEl.classList.remove('show');
+  cEl.style.display = 'inline-block';
+
+  // type brief
+  for (const ch of b.text) {
+    tEl.insertBefore(document.createTextNode(ch), cEl);
+    await sleep(ch === '\n' ? 90 : 26 + Math.random() * 24);
+  }
+
+  await sleep(400);
+  cEl.style.display = 'none';
+
+  // progress bar
+  let pct = 0;
+  const iv = setInterval(() => {
+    pct = Math.min(pct + 1.8, 96);
+    pEl.style.width = pct + '%';
+  }, 38);
+  await sleep(2200);
+  clearInterval(iv);
+  pEl.style.width = '100%';
+  await sleep(180);
+
+  // output items
+  for (const o of b.out) {
+    const el = document.createElement('div');
+    el.className = 'out-item';
+    el.innerHTML = `<i class="out-check">✓</i><span class="out-name">${o.n}</span><span class="out-tag">${o.t}</span>`;
+    lEl.appendChild(el);
+    await sleep(12);
+    el.classList.add('show');
+    await sleep(175);
+  }
+
+  await sleep(350);
+  dEl.classList.add('show');
+  await sleep(4200);
+}
+
+(async () => {
+  running = true;
+  while (true) {
+    await runBrief(BRIEFS[idx++ % BRIEFS.length]);
+    await sleep(1200);
+  }
+})();
+
+/* ── Scroll reveals ─────────────────────────── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rev').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
