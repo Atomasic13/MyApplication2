@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>DECA — A studio in a single brief</title>
+<title>DECA Studio — A design studio in a single brief</title>
+<meta name="description" content="DECA is a design studio that turns one brief into finished work — identity, product design, campaigns — delivered in days, not quarters.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +18,9 @@
   --hairline: #E8E8E1;
   --accent:   #2B3F82;
   --wash:     #F4F4EF;
+  --dark:     #141412;
+  --dark-ink: #EDEDE6;
+  --dark-muted:#8F8F86;
   --serif: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
   --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Helvetica Neue', Arial, sans-serif;
   --max: 1020px;
@@ -31,15 +35,16 @@
     --hairline: #262622;
     --accent:   #8FA3E8;
     --wash:     #1A1A17;
+    --dark:     #0C0C0B;
   }
 }
 :root[data-theme="dark"] {
   --paper:#121210; --ink:#EAEAE3; --muted:#8F8F86; --faint:#5C5C55;
-  --hairline:#262622; --accent:#8FA3E8; --wash:#1A1A17;
+  --hairline:#262622; --accent:#8FA3E8; --wash:#1A1A17; --dark:#0C0C0B;
 }
 :root[data-theme="light"] {
   --paper:#FCFCFA; --ink:#1B1B18; --muted:#75756E; --faint:#ABABA2;
-  --hairline:#E8E8E1; --accent:#2B3F82; --wash:#F4F4EF;
+  --hairline:#E8E8E1; --accent:#2B3F82; --wash:#F4F4EF; --dark:#141412;
 }
 
 /* ── Reset ─────────────────────────────────── */
@@ -52,7 +57,6 @@ body{
 }
 a{color:inherit;text-decoration:none}
 img,svg{display:block;max-width:100%}
-
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px)}
 
 /* ── Type roles ────────────────────────────── */
@@ -83,17 +87,37 @@ img,svg{display:block;max-width:100%}
 /* ── Nav ───────────────────────────────────── */
 nav{border-bottom:1px solid var(--hairline)}
 .nav-inner{
-  display:flex;align-items:baseline;justify-content:space-between;
-  padding:22px 0;gap:24px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 0;gap:24px;
 }
-.logo{font-family:var(--serif);font-size:1.35rem;font-weight:600;letter-spacing:.02em}
-.logo em{font-style:italic;font-weight:500;color:var(--muted);font-size:.9rem;margin-left:10px}
-.nav-links{display:flex;gap:30px;list-style:none}
+.logo{font-family:var(--serif);font-size:1.4rem;font-weight:600;letter-spacing:.02em}
+.logo em{font-style:italic;font-weight:500;color:var(--muted);font-size:.95rem;margin-left:8px}
+.nav-links{display:flex;gap:28px;list-style:none}
 .nav-links a{font-size:.85rem;color:var(--muted);transition:color .2s}
 .nav-links a:hover{color:var(--ink)}
+.theme-toggle{
+  cursor:pointer;background:none;border:1px solid var(--hairline);
+  width:34px;height:34px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:.9rem;line-height:1;
+  transition:border-color .2s,color .2s;flex-shrink:0;
+}
+.theme-toggle:hover{border-color:var(--muted);color:var(--ink)}
+
+/* ── Availability line ─────────────────────── */
+.avail{border-bottom:1px solid var(--hairline);background:var(--wash)}
+.avail-inner{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 0;font-size:.78rem;color:var(--muted);
+}
+.avail-dot{
+  width:7px;height:7px;border-radius:50%;background:#3C9A5F;flex-shrink:0;
+  animation:pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
 /* ── Hero ──────────────────────────────────── */
-.hero{padding:clamp(72px,12vw,140px) 0 clamp(56px,8vw,96px)}
+.hero{padding:clamp(64px,10vw,120px) 0 clamp(56px,8vw,96px)}
 .hero-grid{
   display:grid;grid-template-columns:1.1fr .9fr;
   gap:clamp(40px,6vw,80px);align-items:center;
@@ -101,12 +125,12 @@ nav{border-bottom:1px solid var(--hairline)}
 .hero h1{font-size:clamp(2.9rem,6vw,4.6rem);margin-bottom:26px}
 .hero h1 em{font-style:italic;color:var(--accent)}
 .hero-sub{
-  font-size:1.02rem;color:var(--muted);max-width:40ch;
+  font-size:1.02rem;color:var(--muted);max-width:42ch;
   margin-bottom:36px;
 }
 .hero-actions{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
 
-/* ── Widget (lightened) ────────────────────── */
+/* ── Widget ────────────────────────────────── */
 .widget{border:1px solid var(--hairline);background:var(--paper)}
 .widget-bar{
   padding:12px 20px;border-bottom:1px solid var(--hairline);
@@ -171,6 +195,36 @@ nav{border-bottom:1px solid var(--hairline)}
 }
 .figure .l{font-size:.82rem;color:var(--muted);margin-top:6px}
 
+/* ── Work (dark panels) ────────────────────── */
+.work-band{background:var(--dark);border-top:1px solid var(--hairline)}
+.work-band .sec-head h2{color:var(--dark-ink)}
+.work-band .sec-sub{color:var(--dark-muted)}
+.work-band .label{color:#6A6A62}
+.work-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+}
+.case{
+  position:relative;min-height:340px;padding:26px;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:8px;
+  border:1px solid #26261F;overflow:hidden;
+  transition:border-color .25s;
+}
+.case:hover{border-color:#4A4A40}
+.case-glyph{
+  position:absolute;top:-10px;right:8px;
+  font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:9rem;line-height:1;color:#26261F;
+  transition:color .25s;user-select:none;
+}
+.case:hover .case-glyph{color:#33332B}
+.case-tag{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:#6A6A62}
+.case-title{font-family:var(--serif);font-size:1.5rem;font-weight:500;color:var(--dark-ink);line-height:1.2}
+.case-desc{font-size:.82rem;color:var(--dark-muted)}
+.case-meta{font-size:.7rem;color:#6A6A62;margin-top:6px}
+.work-note{
+  margin-top:22px;font-size:.78rem;color:#6A6A62;
+}
+
 /* ── Capability list ───────────────────────── */
 .cap-list{
   display:grid;grid-template-columns:1fr 1fr;
@@ -192,12 +246,31 @@ nav{border-bottom:1px solid var(--hairline)}
   padding:30px 0;border-bottom:1px solid var(--hairline);
 }
 .step:last-child{border-bottom:none}
-.step-n{
-  font-family:var(--serif);font-style:italic;
-  font-size:1.5rem;color:var(--faint);
-}
+.step-n{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--faint)}
 .step-t{font-family:var(--serif);font-size:1.45rem;font-weight:500}
 .step-d{font-size:.9rem;color:var(--muted)}
+
+/* ── Studio section ────────────────────────── */
+.studio-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(32px,6vw,72px);align-items:start;
+}
+.studio-lede{
+  font-family:var(--serif);font-size:clamp(1.4rem,2.4vw,1.8rem);
+  font-weight:500;line-height:1.4;
+}
+.studio-lede em{font-style:italic;color:var(--accent)}
+.studio-body p{font-size:.92rem;color:var(--muted);margin-bottom:18px}
+.studio-facts{
+  margin-top:8px;border-top:1px solid var(--hairline);
+}
+.studio-facts div{
+  display:flex;justify-content:space-between;gap:16px;
+  padding:12px 0;border-bottom:1px solid var(--hairline);
+  font-size:.85rem;
+}
+.studio-facts dt{color:var(--faint)}
+.studio-facts dd{color:var(--ink);text-align:right}
 
 /* ── Pricing ───────────────────────────────── */
 .plans{display:grid;grid-template-columns:repeat(3,1fr)}
@@ -219,41 +292,73 @@ nav{border-bottom:1px solid var(--hairline)}
   font-size:.85rem;color:var(--muted);
   padding-left:16px;position:relative;
 }
-.plan-feats li::before{
-  content:'·';position:absolute;left:0;color:var(--accent);
-  font-weight:700;
-}
+.plan-feats li::before{content:'·';position:absolute;left:0;color:var(--accent);font-weight:700}
 
-/* ── CTA ───────────────────────────────────── */
-.cta{padding:clamp(72px,11vw,130px) 0;border-top:1px solid var(--hairline);text-align:center}
-.cta h2{font-size:clamp(2.2rem,4.5vw,3.4rem);margin-bottom:16px}
-.cta h2 em{font-style:italic;color:var(--accent)}
-.cta p{font-size:.95rem;color:var(--muted);margin-bottom:34px}
-.cta-actions{display:flex;justify-content:center;align-items:center;gap:26px;flex-wrap:wrap}
-
-/* ── Theme toggle ──────────────────────────── */
-.theme-toggle{
-  cursor:pointer;background:none;border:1px solid var(--hairline);
-  width:34px;height:34px;border-radius:50%;
-  display:inline-flex;align-items:center;justify-content:center;
-  color:var(--muted);font-size:.9rem;line-height:1;
-  transition:border-color .2s,color .2s;flex-shrink:0;
+/* ── FAQ ───────────────────────────────────── */
+.faq{list-style:none;border-top:1px solid var(--hairline)}
+.faq details{border-bottom:1px solid var(--hairline)}
+.faq summary{
+  cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+  padding:20px 0;
+  font-family:var(--serif);font-size:1.25rem;font-weight:500;
 }
-.theme-toggle:hover{border-color:var(--muted);color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';color:var(--faint);font-family:var(--sans);font-size:1rem}
+.faq details[open] summary::after{content:'−'}
+.faq .a{padding:0 0 22px;font-size:.9rem;color:var(--muted);max-width:60ch}
+
+/* ── Contact band ──────────────────────────── */
+.contact-band{background:var(--dark);border-top:1px solid var(--hairline)}
+.contact-grid{
+  display:grid;grid-template-columns:1.1fr .9fr;
+  gap:clamp(32px,6vw,72px);align-items:center;
+  padding:clamp(64px,9vw,110px) 0;
+}
+.contact-grid h2{font-size:clamp(2.2rem,4.2vw,3.2rem);color:var(--dark-ink);margin-bottom:14px}
+.contact-grid h2 em{font-style:italic;color:#8FA3E8}
+.contact-grid p{font-size:.92rem;color:var(--dark-muted);max-width:44ch}
+.contact-card{display:flex;flex-direction:column}
+.contact-card div{
+  padding:14px 0;border-bottom:1px solid #26261F;
+  display:flex;flex-direction:column;gap:2px;
+}
+.contact-card div:first-child{border-top:1px solid #26261F}
+.contact-card .k{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:#6A6A62}
+.contact-card .v{font-size:.95rem;color:var(--dark-ink)}
+.contact-card a.v:hover{color:#8FA3E8}
+.btn-light{
+  display:inline-block;margin-top:26px;
+  font-size:.875rem;font-weight:500;padding:11px 26px;
+  background:var(--dark-ink);color:var(--dark);
+  transition:opacity .2s;
+}
+.btn-light:hover{opacity:.85}
 
 /* ── Footer ────────────────────────────────── */
-footer{border-top:1px solid var(--hairline);padding:26px 0}
-.foot-inner{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.foot-inner span,.foot-inner a{font-size:.75rem;color:var(--faint)}
-.foot-inner a:hover{color:var(--muted)}
-.foot-links{display:flex;gap:22px;list-style:none}
+footer{border-top:1px solid var(--hairline);padding:clamp(36px,5vw,56px) 0 28px}
+.foot-grid{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:clamp(24px,4vw,48px);margin-bottom:36px;
+}
+.foot-brand .logo{margin-bottom:8px}
+.foot-brand p{font-size:.8rem;color:var(--faint);max-width:26ch}
+.foot-col .label{display:block;margin-bottom:14px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.foot-col a{font-size:.83rem;color:var(--muted);transition:color .2s}
+.foot-col a:hover{color:var(--ink)}
+.foot-base{
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding-top:22px;border-top:1px solid var(--hairline);
+}
+.foot-base span,.foot-base a{font-size:.73rem;color:var(--faint)}
 
 /* ── Reveal ────────────────────────────────── */
 .rev{opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s}
 .rev.in{opacity:1;transform:none}
 
 @media(prefers-reduced-motion:reduce){
-  .rev,.out-item,.delivery,.cursor{animation:none;transition:none;opacity:1;transform:none}
+  .rev,.out-item,.delivery,.cursor,.avail-dot{animation:none;transition:none;opacity:1;transform:none}
   .pbar-fill{transition:none}
 }
 
@@ -269,6 +374,10 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   .nav-links{display:none}
   .cap-desc{text-align:left}
   .cap-list li{flex-direction:column;gap:4px}
+  .work-grid{grid-template-columns:1fr}
+  .studio-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
 }
 </style>
 <script>
@@ -283,16 +392,25 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
 </head>
 <body>
 
+<div class="avail">
+  <div class="wrap avail-inner">
+    <span class="avail-dot"></span>
+    <span>Taking on <b>two new clients</b> for autumn 2026 — <a href="#contact" style="border-bottom:1px solid var(--faint)">start a conversation</a></span>
+  </div>
+</div>
+
 <nav>
   <div class="wrap nav-inner">
-    <div class="logo">DECA<em>by FORMA Studio</em></div>
+    <div class="logo">DECA<em>Studio</em></div>
     <ul class="nav-links">
-      <li><a href="#work">How it works</a></li>
-      <li><a href="#capabilities">Capabilities</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#studio">Studio</a></li>
+      <li><a href="#capabilities">Services</a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
     </ul>
     <div style="display:flex;align-items:center;gap:18px">
-      <a href="#start" class="textlink">Request access →</a>
+      <a href="#contact" class="textlink">Contact →</a>
       <button class="theme-toggle" id="theme-toggle" aria-label="Switch between light and dark theme" title="Toggle theme">◐</button>
     </div>
   </div>
@@ -303,14 +421,14 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
     <div>
       <span class="label">Design studio</span>
       <h1 class="display" style="margin-top:18px">The work of ten designers, from <em>one brief</em>.</h1>
-      <p class="hero-sub">DECA reads your brief and returns the finished work — identity, interface, campaign, and every file in between. Delivered to Figma, your inbox, or your phone.</p>
+      <p class="hero-sub">DECA is a design studio built for speed without the usual trade-off. You send the brief; we return the finished work — identity, interface, campaign, and every file in between — in days, not quarters.</p>
       <div class="hero-actions">
-        <a href="#start" class="btn btn-fill">Send a brief</a>
-        <a href="#work" class="textlink">See how it works →</a>
+        <a href="#contact" class="btn btn-fill">Send a brief</a>
+        <a href="#work" class="textlink">See the work →</a>
       </div>
     </div>
 
-    <div class="widget" aria-label="Live demonstration of DECA processing a brief">
+    <div class="widget" aria-label="Live demonstration of a brief being processed">
       <div class="widget-bar">deca · brief-processor</div>
       <div class="widget-body">
         <div class="wlabel">Brief received</div>
@@ -330,15 +448,75 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
     <div class="figure"><div class="n">10</div><div class="l">designers' worth of output</div></div>
     <div class="figure"><div class="n">18</div><div class="l">deliverable types</div></div>
     <div class="figure"><div class="n">48h</div><div class="l">to first delivery</div></div>
+    <div class="figure"><div class="n">24h</div><div class="l">reply to every message</div></div>
   </div>
 </div>
+
+<!-- ══ WORK ═════════════════════════════════════
+     Replace these three anonymized cases with real
+     projects + client names from past work.       -->
+<section class="sec work-band" id="work">
+  <div class="wrap">
+    <div class="sec-head rev">
+      <span class="label">Selected work</span>
+      <h2 class="display">Recent <em>projects</em></h2>
+      <p class="sec-sub">A sample of what leaves the studio. Client names available on request — some work ships under NDA.</p>
+    </div>
+    <div class="work-grid rev">
+      <a class="case" href="#contact">
+        <span class="case-glyph">a</span>
+        <span class="case-tag">Fintech · Brand & Product</span>
+        <span class="case-title">A payments app, from zero to launch</span>
+        <span class="case-desc">Identity, 24 product screens, design system, and the launch campaign — one continuous engagement.</span>
+        <span class="case-meta">Identity · UI · Campaign — 3 weeks</span>
+      </a>
+      <a class="case" href="#contact">
+        <span class="case-glyph">b</span>
+        <span class="case-tag">Hospitality · Web platform</span>
+        <span class="case-title">A booking platform that feels like the place itself</span>
+        <span class="case-desc">Brand refresh, marketing site, and a booking flow redesigned around one metric: completed reservations.</span>
+        <span class="case-meta">Brand · Web · UX — 4 weeks</span>
+      </a>
+      <a class="case" href="#contact">
+        <span class="case-glyph">c</span>
+        <span class="case-tag">Consumer · Campaign</span>
+        <span class="case-title">A six-week launch, every asset on time</span>
+        <span class="case-desc">Full campaign system — social, stories, banners, email — 60+ assets from a single creative direction.</span>
+        <span class="case-meta">Campaign · Social · Email — 6 weeks</span>
+      </a>
+    </div>
+    <p class="work-note rev">Want the full case studies? <a href="#contact" style="border-bottom:1px solid #4A4A40">Ask for the portfolio deck</a> — we send it the same day.</p>
+  </div>
+</section>
+
+<section class="sec" id="studio">
+  <div class="wrap">
+    <div class="sec-head rev">
+      <span class="label">The studio</span>
+      <h2 class="display">Small on purpose. <em>Fast by design.</em></h2>
+    </div>
+    <div class="studio-grid rev">
+      <p class="studio-lede">We think the best design teams are small ones with <em>excellent tools</em> — so we built the studio around a production system most agencies don't have.</p>
+      <div class="studio-body">
+        <p>Every project gets senior design direction from the first sketch to the final file. What makes us different is what happens between those two points: a production pipeline we built ourselves, which turns a structured brief into research, drafts, and finished assets at a pace a traditional team can't match.</p>
+        <p>That's the whole model. No account managers, no hand-offs between departments, no waiting for the Thursday standup. You talk to the person responsible for your work, and the work arrives.</p>
+        <dl class="studio-facts">
+          <div><dt>Founded</dt><dd>2026</dd></div>
+          <div><dt>Based</dt><dd>Portugal — working worldwide</dd></div>
+          <div><dt>Focus</dt><dd>Brand, product, campaigns</dd></div>
+          <div><dt>Response time</dt><dd>Under 24 hours, always</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="sec" id="capabilities">
   <div class="wrap">
     <div class="sec-head rev">
-      <span class="label">Capabilities</span>
+      <span class="label">Services</span>
       <h2 class="display">Every discipline, <em>one studio</em></h2>
-      <p class="sec-sub">From the first competitor audit to the final handoff, DECA carries a project through the full arc of design work.</p>
+      <p class="sec-sub">From the first competitor audit to the final handoff, a project moves through the full arc of design work without leaving the studio.</p>
     </div>
     <ul class="cap-list rev">
       <li><span class="cap-name">Brand identity</span><span class="cap-desc">logo, color, typography, guidelines</span></li>
@@ -350,11 +528,12 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
       <li><span class="cap-name">Motion</span><span class="cap-desc">micro-interactions, Lottie, states</span></li>
       <li><span class="cap-name">Handoff</span><span class="cap-desc">Figma to React, HTML, CSS</span></li>
       <li><span class="cap-name">Presentations</span><span class="cap-desc">decks that explain the decisions</span></li>
+      <li><span class="cap-name">Web</span><span class="cap-desc">marketing sites, built and shipped</span></li>
     </ul>
   </div>
 </section>
 
-<section class="sec" id="work">
+<section class="sec" id="process">
   <div class="wrap">
     <div class="sec-head rev">
       <span class="label">Process</span>
@@ -365,17 +544,17 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
       <div class="step">
         <span class="step-n">i.</span>
         <span class="step-t">Send the brief</span>
-        <span class="step-d">A document, a forwarded email, a voice note — any form will do. DECA turns it into a structured scope with deliverables, timeline, and the questions worth asking.</span>
+        <span class="step-d">A document, a forwarded email, a voice note — any form will do. We turn it into a structured scope with deliverables, a timeline, and the questions worth asking, and send it back for your sign-off within a day.</span>
       </div>
       <div class="step">
         <span class="step-n">ii.</span>
         <span class="step-t">The studio works</span>
-        <span class="step-d">Research, direction, production, and revision run as one continuous process across every deliverable in the scope. You're consulted only when a decision is truly yours.</span>
+        <span class="step-d">Research, direction, production, and revision run as one continuous process across every deliverable in the scope. You're consulted at the decisions that are truly yours — direction, approval, taste — and nothing else interrupts you.</span>
       </div>
       <div class="step">
         <span class="step-n">iii.</span>
         <span class="step-t">Files arrive</span>
-        <span class="step-d">Everything exported, named properly, and sent where you already work — Figma, email, Telegram, WhatsApp. No portals, no download links that expire.</span>
+        <span class="step-d">Everything exported, named properly, and sent where you already work — Figma, email, Telegram, WhatsApp. Masters archived, formats correct, a README in every package. No portals, no links that expire.</span>
       </div>
     </div>
   </div>
@@ -401,7 +580,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
           <li>Delivery straight to your channels</li>
         </ul>
         <p class="plan-desc" style="font-size:.75rem">Comparable hire: one senior designer, $9,000+/mo</p>
-        <a href="#start" class="textlink">Begin →</a>
+        <a href="#contact" class="textlink">Begin →</a>
       </div>
       <div class="plan">
         <span class="label">Studio</span>
@@ -416,7 +595,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
           <li>A dedicated channel, same-week starts</li>
         </ul>
         <p class="plan-desc" style="font-size:.75rem">Comparable hires: a three-person design team, $28,000+/mo</p>
-        <a href="#start" class="textlink">Start Studio →</a>
+        <a href="#contact" class="textlink">Start Studio →</a>
       </div>
       <div class="plan">
         <span class="label">Enterprise</span>
@@ -430,31 +609,113 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
           <li>Integration support and SLA</li>
         </ul>
         <p class="plan-desc" style="font-size:.75rem">Comparable: agency retainer, $40,000+/mo</p>
-        <a href="mailto:hello@formastudio.co" class="textlink">Talk to us →</a>
+        <a href="#contact" class="textlink">Talk to us →</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta" id="start">
-  <div class="wrap rev">
-    <h2 class="display">Start with <em>one brief</em>.</h2>
-    <p>No commitment. Send a real project and judge the work itself.</p>
-    <div class="cta-actions">
-      <a href="mailto:hello@formastudio.co" class="btn btn-fill">Send us a brief</a>
-      <a href="#" class="textlink">Book a 15-minute call →</a>
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head rev">
+      <span class="label">Questions</span>
+      <h2 class="display">The things everyone <em>asks first</em></h2>
+    </div>
+    <ul class="faq rev">
+      <li>
+        <details>
+          <summary>How can you deliver this fast?</summary>
+          <div class="a">We built our own production system. A structured brief goes in, and research, drafts, and production-ready assets come out on a pipeline we've refined project after project. Senior direction reviews everything before it reaches you — speed comes from the system, quality comes from the review.</div>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary>What does "ten deliverables" actually mean?</summary>
+          <div class="a">One deliverable is one finished thing: a logo suite, a set of social posts for a campaign moment, a landing page design, a pitch deck. We scope every project into deliverables before starting, so you always know what's in the month and what's next.</div>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary>How do revisions work?</summary>
+          <div class="a">Every project includes revision rounds. Send feedback in any form — a voice note, an annotated screenshot, a paragraph. We turn it into a revision plan, confirm anything ambiguous, and return the updated work. Unclear feedback gets a question, not a guess.</div>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary>Can we pause or cancel?</summary>
+          <div class="a">Yes. Subscriptions are month to month — pause when the roadmap is quiet, resume when it isn't. No annual lock-in, no cancellation calls.</div>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary>Who owns the work?</summary>
+          <div class="a">You do — fully, on payment, including source files. Figma files, vector masters, fonts documentation, and design tokens are all handed over. No hostage files.</div>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary>What don't you do?</summary>
+          <div class="a">Video production, 3D, and packaging prepress we hand to trusted partners rather than doing badly in-house. If your project leans on those, we'll say so in the scoping call — before you pay, not after.</div>
+        </details>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="contact-band" id="contact">
+  <div class="wrap contact-grid">
+    <div class="rev">
+      <h2 class="display">Have something <em>in mind?</em></h2>
+      <p>Tell us about it. One email, and you'll have a real answer within 24 hours — a scoped plan with a price, not a discovery-call calendar link.</p>
+      <a class="btn-light" href="mailto:hello@decastudio.co">Send us a brief</a>
+    </div>
+    <div class="contact-card rev">
+      <div><span class="k">Email</span><a class="v" href="mailto:hello@decastudio.co">hello@decastudio.co</a></div>
+      <div><span class="k">Response time</span><span class="v">Under 24 hours</span></div>
+      <div><span class="k">Based</span><span class="v">Portugal — working worldwide</span></div>
+      <div><span class="k">Availability</span><span class="v">Two client slots · autumn 2026</span></div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap foot-inner">
-    <span>© 2026 FORMA Studio — DECA is in early access</span>
-    <ul class="foot-links">
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-      <li><a href="mailto:hello@formastudio.co">Contact</a></li>
-    </ul>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">DECA<em>Studio</em></div>
+        <p>A design studio built for speed without the trade-off. Est. 2026.</p>
+      </div>
+      <div class="foot-col">
+        <span class="label">Studio</span>
+        <ul>
+          <li><a href="#studio">About</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <span class="label">What we do</span>
+        <ul>
+          <li><a href="#capabilities">Brand identity</a></li>
+          <li><a href="#capabilities">Product design</a></li>
+          <li><a href="#capabilities">Campaigns</a></li>
+          <li><a href="#capabilities">Design systems</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <span class="label">Elsewhere</span>
+        <ul>
+          <li><a href="#" rel="noopener">Instagram</a></li>
+          <li><a href="#" rel="noopener">LinkedIn</a></li>
+          <li><a href="#" rel="noopener">Dribbble</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 DECA Studio — early access</span>
+      <span><a href="#">Privacy</a> · <a href="#">Terms</a></span>
+    </div>
   </div>
 </footer>
 
